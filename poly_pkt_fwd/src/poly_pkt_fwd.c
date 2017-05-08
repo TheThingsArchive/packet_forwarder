@@ -1396,7 +1396,7 @@ int main(void)
 		printf("### [DOWNSTREAM] ###\n");
 		printf("# PULL_DATA sent: %u (%.2f%% acknowledged)\n", cp_dw_pull_sent, 100.0 * dw_ack_ratio);
 		printf("# PULL_RESP(onse) datagrams received: %u (%u bytes)\n", cp_dw_dgram_rcv, cp_dw_network_byte);
-		printf("# RF packets sent to concentrator: %u (%u bytes)\n", (cp_nb_tx_ok+cp_nb_tx_fail), cp_dw_payload_byte);
+		printf("# RF packets sent by concentrator: %u (%u bytes)\n", (cp_nb_tx_ok+cp_nb_tx_fail), cp_dw_payload_byte);
 		printf("# TX errors: %u\n", cp_nb_tx_fail);
 		printf("### [GPS] ###\n");
 		//TODO: this is not symmetrical. time can also be derived from other sources, fix
