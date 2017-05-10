@@ -18,6 +18,7 @@ Installation manuals are available for main available gateways:
 
 + [Kerlink IoT Station installation manual](docs/INSTALL_INSTRUCTIONS/KERLINK.md)
 + [Multitech Conduit installation manual](docs/INSTALL_INSTRUCTIONS/MULTITECH.md)
++ [Raspberry Pi + IMST ic880a installation manual](docs/INSTALL_INSTRUCTIONS/IMST_RPI.md)
 
 ## <a name="build"></a>Build
 
@@ -25,6 +26,7 @@ If you have a custom-made gateway, or if you want to contribute to the developme
 
 + [Kerlink IoT Station build instructions](docs/INSTALL_INSTRUCTIONS/KERLINK.md#build)
 + [Multitech Conduit build instructions](docs/INSTALL_INSTRUCTIONS/MULTITECH.md#build)
++ [Raspberry Pi + IMST ic880a build instructions](docs/INSTALL_INSTRUCTIONS/IMST_RPI.md#build)
 + [SPI environment build instructions](docs/INSTALL_INSTRUCTIONS/SPI.md)
 + [FTDI environment build instructions](docs/INSTALL_INSTRUCTIONS/FTDI.md) *(Experimental)*
 
