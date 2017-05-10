@@ -69,6 +69,19 @@ kerlink-iot-station-pktfwd:
     paths:
       - release/
 
+imst-rpi-pktfwd:
+  stage: build
+  image: "ubuntu:xenial"
+  script:
+    - pushd $GOPATH/src/github.com/TheThingsNetwork/packet_forwarder
+    - apt install -y arm-linux-gnueabihf-gcc # Installing cross-compiler
+    - GOOS=linux GOARM=7 GOARCH=arm PLATFORM=imst_rpi CFG_SPI=native CC=arm-linux-gnueabihf-gcc make build
+    - GOOS=linux GOARM=7 GOARCH=arm PLATFORM=imst_rpi CFG_SPI=ftdi CC=arm-linux-gnueabihf-gcc make build
+    - popd
+  artifacts:
+    path:
+      - release/
+
 sign:
   before_script: []
   only:
