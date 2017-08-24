@@ -9,6 +9,7 @@ package wrapper
 // #include "loragw_gps.h"
 import "C"
 import (
+	"bufio"
 	"io"
 	"os"
 	"sync"
@@ -94,8 +95,8 @@ func UpdateGPSData(ctx log.Interface) error {
 		ts       C.uint32_t
 		utcTime  C.struct_timespec
 	)
-	buffer := make([]byte, bufferSize)
-	_, err := gps.Read(buffer)
+	reader := bufio.NewReader(gps)
+	buffer, err := reader.ReadBytes('\x0a')
 	if err != nil && err != io.EOF {
 		return errors.Wrap(err, "GPS interface read error")
 	}
@@ -138,7 +139,7 @@ func UpdateGPSData(ctx log.Interface) error {
 
 	ctx.Debug("Fetching GPS coordinates")
 	coordinatesMutex.Lock()
-	ok = C.lgw_gps_get(nil, &coord, &coordErr) != C.LGW_GPS_SUCCESS
+	ok = C.lgw_gps_get(nil, &coord, &coordErr) == C.LGW_GPS_SUCCESS
 	// For the moment, coordErr is unused, because the back-end doesn't handle the GPS's margin of error.
 	// One possible improvement, if it is handled upstream, would be handling this.
 	if !ok {
@@ -152,7 +153,7 @@ func UpdateGPSData(ctx log.Interface) error {
 		Longitude: float64(coord.lon),
 	}
 	validCoordinates = true
-	ctx.WithFields(log.Fields{"Altitude": coordinates.Altitude, "Latitude": coordinates.Latitude, "Longitude": coordinates.Longitude}).Info("GPS coordinates updated")
+	ctx.WithFields(log.Fields{"Altitude": coordinates.Altitude, "Latitude": coordinates.Latitude, "Longitude": coordinates.Longitude}).Debug("GPS coordinates updated")
 	coordinatesMutex.Unlock()
 	return nil
 }
