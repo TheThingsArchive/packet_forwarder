@@ -153,7 +153,7 @@ func UpdateGPSData(ctx log.Interface) error {
 		Longitude: float64(coord.lon),
 	}
 	validCoordinates = true
-	ctx.WithFields(log.Fields{"Altitude": coordinates.Altitude, "Latitude": coordinates.Latitude, "Longitude": coordinates.Longitude}).Info("GPS coordinates updated")
+	ctx.WithFields(log.Fields{"Altitude": coordinates.Altitude, "Latitude": coordinates.Latitude, "Longitude": coordinates.Longitude}).Debug("GPS coordinates updated")
 	coordinatesMutex.Unlock()
 	return nil
 }
