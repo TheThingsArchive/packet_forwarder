@@ -82,8 +82,26 @@ imst-rpi-pktfwd:
   image: "ubuntu:xenial"
   script:
     - pushd $GOPATH/src/github.com/TheThingsNetwork/packet_forwarder
-    - apt install -y gcc-arm-linux-gnueabi # Installing cross-compiler
+    - apt-get install -y gcc-arm-linux-gnueabi # Installing cross-compiler
     - GOOS=linux GOARM=7 GOARCH=arm PLATFORM=imst_rpi CFG_SPI=native CC=arm-linux-gnueabi-gcc make build
+    - cp scripts/rpi/install-systemd.sh release
+    - popd
+  artifacts:
+    paths:
+      - release/
+      
+multitech-ftdi-generic-ubuntu-pktfwd:
+  stage: build
+  image: "ubuntu:xenial"
+  script:
+    - pushd $GOPATH/src/github.com/TheThingsNetwork/packet_forwarder
+    - apt install -y build-essential libftdi-dev
+    - wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libmpsse/libmpsse-1.3.tar.gz
+    - tar zxvf libmpsse-1.3.tar.gz
+    - libmpsse-1.3/src/configure --disable-python 
+    - make -C libmpsse-1.3/src
+    - make -C libmpsse-1.3/src install
+    - GOOS=linux PLATFORM=multitech CFG_SPI=ftdi make build
     - cp scripts/rpi/install-systemd.sh release
     - popd
   artifacts:
