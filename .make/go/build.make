@@ -3,15 +3,15 @@ GOOS   ?= $(or $(word 1,$(subst -, ,${TARGET_PLATFORM})), $(shell echo "`go env 
 GOARCH ?= $(or $(word 2,$(subst -, ,${TARGET_PLATFORM})), $(shell echo "`go env GOARCH`"))
 
 ifeq ($(GOOS),darwin)
-	CGO_LDFLAGS := -lmpsse
+	CGO_LDFLAGS ?= -lmpsse
 else
 ifeq ($(CFG_SPI),ftdi)
-	CGO_LDFLAGS := -lrt -lmpsse
+	CGO_LDFLAGS ?= -lrt -lmpsse
 else
-	CGO_LDFLAGS := -lrt
+	CGO_LDFLAGS ?= -lrt
 endif
 ifneq ($(SDKTARGETSYSROOT),)
-	CGO_CFLAGS := -I$(SDKTARGETSYSROOT)/usr/include/libftdi1 -I$(SDKTARGETSYSROOT)/usr/include
+	CGO_CFLAGS ?= -I$(SDKTARGETSYSROOT)/usr/include/libftdi1 -I$(SDKTARGETSYSROOT)/usr/include
 endif
 endif
 
