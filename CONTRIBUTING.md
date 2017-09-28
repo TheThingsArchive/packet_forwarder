@@ -18,3 +18,5 @@ We warmly welcome your pull requests. Be sure to follow some simple guidelines s
 - Write tests
 - Write [good commit messages](https://chris.beams.io/posts/git-commit/)
 - Sign our [CLA](https://cla-assistant.io/TheThingsNetwork/packet_forwarder)
+
+Submit your pull requests to be merged against the `develop` branch. We then merge `develop` to `master` at the release of a new version.
